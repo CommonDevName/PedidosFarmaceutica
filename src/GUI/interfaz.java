@@ -116,7 +116,7 @@ public class interfaz1 extends JFrame {
         carrito.add(txtCarrito);
         
         
-        //GRID DEL CARRITO    
+        //GRID DEL CARRITO, osea es el espacio ya con un grid vera per, pos... aja :3
         JPanel ContProCa =new JPanel();
         ContProCa.setBounds(10, 60, 219, 338);
         ContProCa.setLayout(new GridLayout());
