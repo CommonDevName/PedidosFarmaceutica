@@ -1,7 +1,3 @@
-
-package Vista;
-
-
 public interface interfazAcciones{
     
     public void verificarContrasena();
