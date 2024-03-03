@@ -11,9 +11,8 @@ public class interfaz1 extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(900, 600);
         setLayout(null); // Establecer el layout como null
-        //bienvenida();
+        bienvenida();
         contenido();
-
         setVisible(true);
     }
 
