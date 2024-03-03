@@ -1,49 +1,31 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package proyecto;
-
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Font;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
-import javax.swing.border.LineBorder;
 
-/**
- *
- * @author lunar
- */
-public class interfaz extends JFrame{
-    private String[] Lista; //aqui van los productos que pondremos
-    public interfaz(String tittle){
-        
-        super("Pedidos Farmacuetica");
+public class interfaz1 extends JFrame {
+    private String[] Lista = {"Producto 1", "Producto 2", "Producto 3", "Producto 4", "Producto 5", "Producto 6", "Producto 7", "Producto 8", "Producto 9", "Producto 10"};
+
+    public interfaz1(String tittle) {
+        super("Pedidos Farmacéutica");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(1000,600);
-        setLayout(new BorderLayout());
-        //bienvenida();
+        setSize(1000, 600);
+        setLayout(null); // Establecer el layout como null
+        bienvenida();
         contenido();
         setVisible(true);
     }
-    
-    public  void bienvenida(){
-        //Mensaje de BIENVENIDA y entrada con ingreso de una clave
+
+    public void bienvenida() {
+        // Mensaje de BIENVENIDA y entrada con ingreso de una clave
         JPanel panelBienvenida = new JPanel();
         JPasswordField clave = new JPasswordField(8);
         JLabel ms = new JLabel("Ingrese su Clave de cliente: ");
         panelBienvenida.add(ms);
         ms.setFont(new Font("San-Serif", Font.PLAIN, ms.getFont().getSize()));
         panelBienvenida.add(clave);
-        //Personalizacion de opciones
+
+        // Personalización de opciones
         int entrada = JOptionPane.showOptionDialog(
                 null,
                 panelBienvenida,
@@ -51,64 +33,60 @@ public class interfaz extends JFrame{
                 JOptionPane.OK_CANCEL_OPTION,
                 JOptionPane.PLAIN_MESSAGE,
                 null,
-                new Object[]{"Ingresar","Cancelar"},
+                new Object[]{"Ingresar", "Cancelar"},
                 "Aceptar");
-        
-        if(entrada==JOptionPane.OK_OPTION){
-            char[] Contrasena = clave.getPassword();   
-            String ClaveString = new String(Contrasena);
-            System.out.println("Bienvenido!");// temporalmente mientras se agrega lo del nombre que estara ligada a la clave
-        }else{
-            if(entrada==JOptionPane.CANCEL_OPTION){
-                System.exit(0);
-            }
+
+        if (entrada == JOptionPane.CANCEL_OPTION) {
+            System.exit(0);
         }
     }
-    
-    public void contenido(){
-        //parte superior con leyenda del nombre
-        JPanel contBien = new JPanel();
-        add(contBien);
+
+    public void contenido() {
+        // Parte superior con leyenda del nombre
         JLabel bienvenida = new JLabel("Bienvenido! ¿Qué compraremos hoy?");
-        bienvenida.setFont(new Font("Consolas",Font.ITALIC|Font.BOLD,20));
-        contBien.setBounds(25,8,375,30);
-        //contBien.setBorder(new LineBorder(Color.blue));//temporal
-        contBien.add(bienvenida);
-  
-        //seccion para mostras busqueda y productos
-        
-        //hacer panel para la busqueda tanto etiqueta como menuitem
-        JPanel contenedorProductos =new JPanel();
-        add(contenedorProductos,BorderLayout.CENTER);//el contenedor esta ubicado en la parte centro del borderLayout del frame
-       // contenedorProductos.setBorder(new LineBorder(Color.blue));//temporal
-        
-        //se agrega un layout al contenedor para busqueda
-        contenedorProductos.setLayout(null);     
+        bienvenida.setFont(new Font("Consolas", Font.ITALIC | Font.BOLD, 20));
+        bienvenida.setBounds(25, 8, 375, 30);
+        add(bienvenida);
+
+        // Creación del panel para la búsqueda
+        JPanel panelBus = new JPanel();
         JLabel busqueda = new JLabel("Buscar Producto: ");
-        busqueda.setFont(new Font("Consolas",Font.BOLD,27));
-        JPanel panelBus= new JPanel();
-        panelBus.setBounds(10,60,250,40);
-        //panelBus.setBorder(new LineBorder(Color.blue));//TEMPORAL
+        busqueda.setFont(new Font("Consolas", Font.BOLD, 27));
         panelBus.add(busqueda);
-        contenedorProductos.add(panelBus);
+        panelBus.setBounds(10, 60, 250, 40);
+        add(panelBus);
+
+        // Creación del cuadro de búsqueda
+        JTextField itembusqueda = new JTextField(10);
+        itembusqueda.setBounds(260, 60, 250, 40);
+        add(itembusqueda);
+
+        // Creación de la lista para la búsqueda
+        JList<String> sugerencias = new JList<>(Lista);
+        sugerencias.setVisibleRowCount(5);
+        sugerencias.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        sugerencias.setVisible(false);
+        JScrollPane scrollpaneList = new JScrollPane(sugerencias);
+        scrollpaneList.setBounds(260, 100, 250, 50);
+        add(scrollpaneList);
         
-        //creacion del cuadro de busqueda
         
-        JTextField itembusqueda = new JTextField (100);
         itembusqueda.addActionListener(new ActionListener (){
         public void actionPerformed(ActionEvent e) {
-               
-            }
+      
+            String text = itembusqueda.getText().toLowerCase();
+            DefaultListModel<String> model = new DefaultListModel<>();
+            for (String suggestion : Lista) {
+                if (suggestion.toLowerCase().contains(text)) {
+                model.addElement(suggestion);
+                }
+            }  
+            sugerencias.setModel(model);
+            sugerencias.setVisible(!model.isEmpty());
+        }
         });
-        //creacion de la lista para la busqueda
-        JList sugerencias = new JList<>(Lista);
-        sugerencias.setVisibleRowCount(10);
-        
-        
     }
-    
     public static void main(String[] args) {
-       interfaz s = new interfaz("Pedidos Farmaceutica");
+        interfaz1 s =new interfaz1("Pedidos Farmacéutica");
     }
-    
 }
