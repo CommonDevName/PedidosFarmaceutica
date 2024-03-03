@@ -9,10 +9,11 @@ public class interfaz1 extends JFrame {
     public interfaz1(String tittle) {
         super("Pedidos Farmacéutica");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(1000, 600);
+        setSize(900, 600);
         setLayout(null); // Establecer el layout como null
-        bienvenida();
+        //bienvenida();
         contenido();
+
         setVisible(true);
     }
 
@@ -67,7 +68,8 @@ public class interfaz1 extends JFrame {
         sugerencias.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         sugerencias.setVisible(false);
         JScrollPane scrollpaneList = new JScrollPane(sugerencias);
-        scrollpaneList.setBounds(260, 100, 250, 50);
+        scrollpaneList.setBounds(260, 100, 250, 80);
+        scrollpaneList.setVisible(false);
         add(scrollpaneList);
         
         
@@ -83,10 +85,63 @@ public class interfaz1 extends JFrame {
             }  
             sugerencias.setModel(model);
             sugerencias.setVisible(!model.isEmpty());
+            scrollpaneList.setVisible(!model.isEmpty());
+            
         }
         });
+        
+        //creacion del area productos 
+        JPanel productos = new JPanel();
+        productos.setBackground(Color.LIGHT_GRAY);
+        productos.setBounds(35, 210, 550, 250);
+        add(productos);
+        
+        //cracion de botones de compra
+        JButton btnAnadir = new JButton("Añadir al Carrito");
+        JButton btnComprar1 = new JButton("Comprar");
+        btnAnadir.setBounds(50,507,128,25);
+        btnComprar1.setBounds(400,507,128,25);
+        add(btnComprar1);
+        add(btnAnadir);
+               
+        //Creación del area carrito
+        JPanel carrito= new JPanel();
+        JLabel txtCarrito =new JLabel("Carrito");
+        txtCarrito.setFont(new Font("Consolas", Font.ITALIC|Font.BOLD,25));
+        txtCarrito.setHorizontalAlignment(SwingConstants.CENTER);
+        txtCarrito.setVerticalAlignment(SwingConstants.CENTER);
+        txtCarrito.setBounds(70,25,100,25);
+        carrito.setLayout(null);
+        carrito.setBackground(Color.LIGHT_GRAY);
+        carrito.setBounds(620, 40, 240, 485);
+        carrito.add(txtCarrito);
+        
+        
+        //GRID DEL CARRITO    
+        JPanel ContProCa =new JPanel();
+        ContProCa.setBounds(10, 60, 219, 338);
+        ContProCa.setLayout(new GridLayout());
+        ContProCa.setBackground(Color.GRAY);
+        carrito.add(ContProCa);
+        
+        //Botones del Carrito
+        JButton btnLimpiar = new JButton("Limpiar el Carrito");
+        JButton btnComprar = new JButton("Comprar todo el carrito");
+        btnLimpiar.setBounds(55,410,140,25);
+        btnComprar.setBounds(40,445,170,25);       
+        carrito.add(btnLimpiar);
+        carrito.add(btnComprar);
+        
+        add(carrito);
+        
+        //Creacion de Botones
+        
+        
+        
     }
+    
     public static void main(String[] args) {
         interfaz1 s =new interfaz1("Pedidos Farmacéutica");
     }
 }
+
