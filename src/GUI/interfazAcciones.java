@@ -1,3 +1,5 @@
+package GUI;
+
 public interface interfazAcciones{
     
     public void verificarContrasena();
